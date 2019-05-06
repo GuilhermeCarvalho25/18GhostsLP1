@@ -4,85 +4,16 @@ using System.Text;
 
 namespace _18GhostsGame
 {
-    class Checker
+    class GhostChecker
     {
-        // Used by Board for props
-        public static bool CheckInBoard(string target, byte line, byte j)
-        {
-            bool isHere = false;
-
-            switch (target)
-            {
-                // mirrors
-                case "mirror":
-                    if ((j == 9 && line % 2 == 0) ||
-                        (j == 21 && line % 2 == 0))
-                        isHere = true;
-                    break;
-                // Red portal
-                case "red":
-                    if (j == 15 && line == 1)
-                        isHere = true;
-                    break;
-                // Blue portal
-                case "blue":
-                    if (j == 15 && line == 5)
-                        isHere = true;
-                    break;
-                // Yellow portal
-                case "yellow":
-                    if (j == 27 && line == 3)
-                        isHere = true;
-                    break;
-                case "column":
-                    if (j % 6 == 0)
-                        isHere = true;
-                    break;
-                // Middle spots
-                case "middle":
-                    if (j % 3 == 0)
-                        isHere = true;
-                    break;
-
-            }
-
-            return isHere;
-        }
-
-        // Used by the Board for ghosts
-        public static bool CheckInBoard(byte[] ghostPos, byte line, byte j)
-        {
-            bool isHere = false;
-
-            if (ghostPos[0] == line && ghostPos[1] == j)
-                isHere = true;
-
-            return isHere;
-        }
-
-
-        // Check if given direction has a ally ghost there
-        public static bool CheckAdjacentPos
-            (char direction, byte targetGhost, byte[,] playerGhosts)
-        {
-            // occupied = Ghost There
-            bool occupied = false;
-            byte targetPos;
-            targetPos = DesiredPosition(direction, targetGhost);
-
-            if (CheckAllForEqual(targetPos, playerGhosts))
-                occupied = true;
-
-            return occupied;
-        }
-
-
-        // This method is for returning the given ghost 
+        // This method is for returning the ghost in the target location
         // (target is for the single ghost and allGhosts is for 
         // where it is contained)
+        // finalGhost is the ghost in the target location if it returns
+        // 0,0 there is no ghost there
         // finalGhost[0] = Which ghost: first, second or third
         // finalGhost[1] = Color of the ghost: red, blue, yellow
-        public static byte[] CheckAdjacentPosEnemy
+        public static byte[] CheckAdjacentPos
             (char direction, byte targetGhost, byte[,] enemyGhosts)
         {
             // occupied = Ghost There
@@ -159,7 +90,6 @@ namespace _18GhostsGame
                     break;
                 }
             }
-
             return isEqual;
         }
 
@@ -189,5 +119,6 @@ namespace _18GhostsGame
 
             return targetPos;
         }
+
     }
 }

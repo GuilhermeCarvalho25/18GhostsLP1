@@ -6,7 +6,7 @@ using System.Text;
 
 namespace _18GhostsGame
 {
-    class Renderer
+    class BoardRenderer
     {
         // Not for Ghosts
         public static void PrintSymbol(Symbols symbol)
@@ -21,7 +21,7 @@ namespace _18GhostsGame
             byte[] foundGhost = new byte[2] { 0, 0 };
             Symbols ghostSymbol = Symbols.blank;
 
-            foundGhost = Checker.FindGhost(targetGhost, allGhosts);
+            foundGhost = GhostChecker.FindGhost(targetGhost, allGhosts);
 
             // Check for the same target ghost number on player ghosts
             switch (foundGhost[0])
